@@ -7,9 +7,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 
 from models.llm import get_chatgroq_model
 
-# ----------------------------
-# NEW IMPORTS (ADDED)
-# ----------------------------
 from utils.rag import load_documents, build_index, retrieve_docs
 from utils.web_search import search_web
 
@@ -118,10 +115,7 @@ def instructions_page():
 def chat_page():
     """Main chat interface page"""
     st.title("🤖 AI ChatBot")
-    
-    # ----------------------------
-    # NEW FEATURE: RESPONSE MODE
-    # ----------------------------
+
     st.sidebar.subheader("Response Mode")
 
     mode = st.sidebar.radio(
@@ -153,9 +147,7 @@ def chat_page():
     # Chat input
     if prompt := st.chat_input("Type your message here..."):
         
-        # ----------------------------
-        # NEW FEATURE: RAG + WEB SEARCH
-        # ----------------------------
+
         try:
             load_documents()
             build_index()
@@ -170,9 +162,6 @@ def chat_page():
         except Exception as e:
             context = f"Context retrieval error: {str(e)}"
 
-        # ----------------------------
-        # BUILD FINAL PROMPT
-        # ----------------------------
         final_prompt = f"""
 Use the following context to answer the question.
 
